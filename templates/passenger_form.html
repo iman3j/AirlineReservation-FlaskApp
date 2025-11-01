@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>{{ 'Edit' if passenger else 'Add' }} Passenger</h2>
+  <form method="post">
+    <div class="mb-3">
+      <label class="form-label">Name</label>
+      <input class="form-control" name="name" value="{{ passenger.name if passenger else '' }}" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Email</label>
+      <input class="form-control" name="email" value="{{ passenger.email if passenger else '' }}">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Phone</label>
+      <input class="form-control" name="phone" value="{{ passenger.phone if passenger else '' }}">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Passport No</label>
+      <input class="form-control" name="passport_no" value="{{ passenger.passport_no if passenger else '' }}">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Loyalty Points</label>
+      <input class="form-control" name="loyalty_points" value="{{ passenger.loyalty_points if passenger else 0 }}">
+    </div>
+    <button class="btn btn-primary">Save</button>
+    <a class="btn btn-secondary" href="/passengers">Cancel</a>
+  </form>
+{% endblock %}

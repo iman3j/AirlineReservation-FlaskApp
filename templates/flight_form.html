@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>{{ 'Edit' if flight else 'Add' }} Flight</h2>
+  <form method="post">
+    <div class="mb-3">
+      <label class="form-label">Airline</label>
+      <input class="form-control" name="airline" value="{{ flight.airline if flight else '' }}" required>
+    </div>
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Source Airport</label>
+        <select class="form-select" name="source_airport_id">
+          <option value="">-- Select --</option>
+          {% for a in airports %}
+            <option value="{{ a.airport_id }}" {% if flight and flight.source_airport_id==a.airport_id %}selected{% endif %}>{{ a.name }} ({{ a.code }})</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label class="form-label">Destination Airport</label>
+        <select class="form-select" name="dest_airport_id">
+          <option value="">-- Select --</option>
+          {% for a in airports %}
+            <option value="{{ a.airport_id }}" {% if flight and flight.dest_airport_id==a.airport_id %}selected{% endif %}>{{ a.name }} ({{ a.code }})</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Departure Time</label>
+      <input class="form-control" type="datetime-local" name="departure_time" value="{{ flight.departure_time|replace(' ', 'T') if flight and flight.departure_time }}">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Arrival Time</label>
+      <input class="form-control" type="datetime-local" name="arrival_time" value="{{ flight.arrival_time|replace(' ', 'T') if flight and flight.arrival_time }}">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Status</label>
+      <input class="form-control" name="status" value="{{ flight.status if flight else '' }}">
+    </div>
+    <button class="btn btn-primary">Save</button>
+    <a class="btn btn-secondary" href="/flights">Cancel</a>
+  </form>
+{% endblock %}

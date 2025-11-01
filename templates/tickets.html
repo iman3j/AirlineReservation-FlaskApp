@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Tickets</h2>
+    <a class="btn btn-success" href="/tickets/add">Add Ticket</a>
+  </div>
+  <form class="mb-3" method="get" action="/tickets">
+    <div class="input-group">
+      <input name="q" class="form-control" placeholder="Search tickets...">
+      <button class="btn btn-outline-secondary">Search</button>
+    </div>
+  </form>
+  <table class="table table-striped">
+    <thead>
+      <tr><th>ID</th><th>Flight</th><th>Passenger</th><th>Seat</th><th>Class</th><th>Price</th><th>Booking Date</th><th>Status</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+      {% for t in tickets %}
+        <tr>
+          <td>{{ t.ticket_id }}</td>
+          <td>{{ t.flight_airline }}</td>
+          <td>{{ t.passenger_name }}</td>
+          <td>{{ t.seat_no }}</td>
+          <td>{{ t.class }}</td>
+          <td>{{ t.price }}</td>
+          <td>{{ t.booking_date }}</td>
+          <td>{{ t.status }}</td>
+          <td>
+            <a class="btn btn-sm btn-primary" href="/tickets/edit/{{ t.ticket_id }}">Edit</a>
+            <form method="post" action="/tickets/delete/{{ t.ticket_id }}" style="display:inline" onsubmit="return confirm('Delete?');">
+              <button class="btn btn-sm btn-danger">Delete</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>{{ 'Edit' if ticket else 'Add' }} Ticket</h2>
+  <form method="post">
+    <div class="mb-3">
+      <label class="form-label">Flight</label>
+      <select class="form-select" name="flight_id">
+        <option value="">-- Select --</option>
+        {% for f in flights %}
+          <option value="{{ f.flight_id }}" {% if ticket and ticket.flight_id==f.flight_id %}selected{% endif %}>{{ f.airline }} (#{{ f.flight_id }})</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Passenger</label>
+      <select class="form-select" name="passenger_id">
+        <option value="">-- Select --</option>
+        {% for p in passengers %}
+          <option value="{{ p.passenger_id }}" {% if ticket and ticket.passenger_id==p.passenger_id %}selected{% endif %}>{{ p.name }} (#{{ p.passenger_id }})</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Seat No</label>
+      <input class="form-control" name="seat_no" value="{{ ticket.seat_no if ticket else '' }}">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Class</label>
+      <input class="form-control" name="class" value="{{ ticket.class if ticket else '' }}">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Price</label>
+      <input class="form-control" name="price" value="{{ ticket.price if ticket else '' }}">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Booking Date</label>
+      <input class="form-control" type="datetime-local" name="booking_date" value="{{ ticket.booking_date|replace(' ', 'T') if ticket and ticket.booking_date }}">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Status</label>
+      <input class="form-control" name="status" value="{{ ticket.status if ticket else '' }}">
+    </div>
+    <button class="btn btn-primary">Save</button>
+    <a class="btn btn-secondary" href="/tickets">Cancel</a>
+  </form>
+{% endblock %}

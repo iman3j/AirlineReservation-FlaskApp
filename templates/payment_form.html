@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>{{ 'Edit' if payment else 'Add' }} Payment</h2>
+  <form method="post">
+    <div class="mb-3">
+      <label class="form-label">Ticket</label>
+      <select class="form-select" name="ticket_id">
+        <option value="">-- Select --</option>
+        {% for t in tickets %}
+          <option value="{{ t.ticket_id }}" {% if payment and payment.ticket_id==t.ticket_id %}selected{% endif %}>#{{ t.ticket_id }} - {{ t.seat_no }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Amount</label>
+      <input class="form-control" name="amount" value="{{ payment.amount if payment else '' }}">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Method</label>
+      <input class="form-control" name="method" value="{{ payment.method if payment else '' }}">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Status</label>
+      <input class="form-control" name="status" value="{{ payment.status if payment else '' }}">
+    </div>
+    <button class="btn btn-primary">Save</button>
+    <a class="btn btn-secondary" href="/payments">Cancel</a>
+  </form>
+{% endblock %}

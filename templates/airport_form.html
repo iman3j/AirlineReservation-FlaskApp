@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>{{ 'Edit' if airport else 'Add' }} Airport</h2>
+  <form method="post">
+    <div class="mb-3">
+      <label class="form-label">Name</label>
+      <input class="form-control" name="name" value="{{ airport.name if airport else '' }}" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">City</label>
+      <input class="form-control" name="city" value="{{ airport.city if airport else '' }}">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Country</label>
+      <input class="form-control" name="country" value="{{ airport.country if airport else '' }}">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Code</label>
+      <input class="form-control" name="code" value="{{ airport.code if airport else '' }}">
+    </div>
+    <button class="btn btn-primary">Save</button>
+    <a class="btn btn-secondary" href="/airports">Cancel</a>
+  </form>
+{% endblock %}

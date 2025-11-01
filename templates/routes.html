@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Routes</h2>
+    <a class="btn btn-success" href="/routes/add">Add Route</a>
+  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr><th>ID</th><th>Flight</th><th>Distance (km)</th><th>Duration (min)</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+      {% for r in routes %}
+        <tr>
+          <td>{{ r.route_id }}</td>
+          <td>{{ r.flight_airline }}</td>
+          <td>{{ r.distance_km }}</td>
+          <td>{{ r.duration_minutes }}</td>
+          <td>
+            <a class="btn btn-sm btn-primary" href="/routes/edit/{{ r.route_id }}">Edit</a>
+            <form method="post" action="/routes/delete/{{ r.route_id }}" style="display:inline" onsubmit="return confirm('Delete?');">
+              <button class="btn btn-sm btn-danger">Delete</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

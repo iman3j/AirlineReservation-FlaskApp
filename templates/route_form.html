@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>{{ 'Edit' if route else 'Add' }} Route</h2>
+  <form method="post">
+    <div class="mb-3">
+      <label class="form-label">Flight</label>
+      <select class="form-select" name="flight_id">
+        <option value="">-- Select --</option>
+        {% for f in flights %}
+          <option value="{{ f.flight_id }}" {% if route and route.flight_id==f.flight_id %}selected{% endif %}>{{ f.airline }} (#{{ f.flight_id }})</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Distance (km)</label>
+      <input class="form-control" name="distance_km" value="{{ route.distance_km if route else '' }}">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Duration (minutes)</label>
+      <input class="form-control" name="duration_minutes" value="{{ route.duration_minutes if route else '' }}">
+    </div>
+    <button class="btn btn-primary">Save</button>
+    <a class="btn btn-secondary" href="/routes">Cancel</a>
+  </form>
+{% endblock %}

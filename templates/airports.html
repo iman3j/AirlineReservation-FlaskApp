@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Airports</h2>
+    <div>
+      <a class="btn btn-success" href="/airports/add">Add Airport</a>
+    </div>
+  </div>
+  <form class="mb-3" method="get" action="/airports">
+    <div class="input-group">
+      <input name="q" class="form-control" placeholder="Search airports...">
+      <button class="btn btn-outline-secondary">Search</button>
+    </div>
+  </form>
+  <table class="table table-striped">
+    <thead>
+      <tr><th>ID</th><th>Name</th><th>City</th><th>Country</th><th>Code</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+      {% for a in airports %}
+        <tr>
+          <td>{{ a.airport_id }}</td>
+          <td>{{ a.name }}</td>
+          <td>{{ a.city }}</td>
+          <td>{{ a.country }}</td>
+          <td>{{ a.code }}</td>
+          <td>
+            <a class="btn btn-sm btn-primary" href="/airports/edit/{{ a.airport_id }}">Edit</a>
+            <form method="post" action="/airports/delete/{{ a.airport_id }}" style="display:inline" onsubmit="return confirm('Delete?');">
+              <button class="btn btn-sm btn-danger">Delete</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

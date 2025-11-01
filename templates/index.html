@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="row">
+    <div class="col-12">
+      <h1 class="mb-3">Dashboard</h1>
+      <div class="row">
+        {% for k,v in counts.items() %}
+          <div class="col-md-3 mb-3">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">{{ k }}</h5>
+                <p class="card-text display-6">{{ v }}</p>
+                <a href="/{{ k|lower }}" class="btn btn-sm btn-primary">Open</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

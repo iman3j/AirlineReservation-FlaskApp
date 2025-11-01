@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Passengers</h2>
+    <a class="btn btn-success" href="/passengers/add">Add Passenger</a>
+  </div>
+  <form class="mb-3" method="get" action="/passengers">
+    <div class="input-group">
+      <input name="q" class="form-control" placeholder="Search passengers...">
+      <button class="btn btn-outline-secondary">Search</button>
+    </div>
+  </form>
+  <table class="table table-striped">
+    <thead>
+      <tr><th>ID</th><th>Name</th><th>Email</th><th>Phone</th><th>Passport</th><th>Points</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+      {% for p in passengers %}
+        <tr>
+          <td>{{ p.passenger_id }}</td>
+          <td>{{ p.name }}</td>
+          <td>{{ p.email }}</td>
+          <td>{{ p.phone }}</td>
+          <td>{{ p.passport_no }}</td>
+          <td>{{ p.loyalty_points }}</td>
+          <td>
+            <a class="btn btn-sm btn-primary" href="/passengers/edit/{{ p.passenger_id }}">Edit</a>
+            <form method="post" action="/passengers/delete/{{ p.passenger_id }}" style="display:inline" onsubmit="return confirm('Delete?');">
+              <button class="btn btn-sm btn-danger">Delete</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

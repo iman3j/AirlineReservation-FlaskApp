@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Crew</h2>
+    <a class="btn btn-success" href="/crew/add">Add Crew</a>
+  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr><th>ID</th><th>Name</th><th>Role</th><th>Assigned Flight</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+      {% for c in crew %}
+        <tr>
+          <td>{{ c.crew_id }}</td>
+          <td>{{ c.name }}</td>
+          <td>{{ c.role }}</td>
+          <td>{{ c.flight_airline }}</td>
+          <td>
+            <a class="btn btn-sm btn-primary" href="/crew/edit/{{ c.crew_id }}">Edit</a>
+            <form method="post" action="/crew/delete/{{ c.crew_id }}" style="display:inline" onsubmit="return confirm('Delete?');">
+              <button class="btn btn-sm btn-danger">Delete</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
